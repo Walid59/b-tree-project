@@ -1,6 +1,6 @@
 
 
-class Noeud :
+class Node :
         
     def __init__(self,taille) :
         self.taille = taille
@@ -56,10 +56,14 @@ class Noeud :
     
 class Arbre :
     
-    def __init__(self, Noeud, listeArbres) :
-       self.Noeud = Noeud
-       self.listeArbres = listeArbres
+    def __init__(self, Order) :
+       self.Order = Order
+       #self.listeArbres = listeArbres
        
+       self.val = None
+       self.left = None
+       self.right = None
+           
     
        
         
