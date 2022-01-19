@@ -2,12 +2,17 @@
 
 class Node :
         
-    def __init__(self,taille) :
-        self.taille = taille
-        self.feuille = False
+    def __init__(self, n, feuille = False) :
+        #self.taille = taille
         #self.parent = parent
+        self.feuille = feuille
+        #self.nbClesMin = L-1
+        #self.nbClesMax = U-1
+        self.n = n # nobre des element dans ce neoud
         self.tabCles = []
-        self.tabFils = []
+        self.tabNodeChildrens = []
+        # Current number of keys
+        self.n = 0 
     
     """
     This is a javadoc style.
@@ -20,8 +25,8 @@ class Node :
     def ajoutCle(self, cle) :
         self.tabCles.append(cle)
         
-    def ajoutCles(self) :
-        listevaleurs = [i for i in range (self.taille)]
+    def ajoutCles(self, nbCles) :
+        listevaleurs = [i for i in range (nbCles)]
         for i in  listevaleurs:
             self.tabCles.append(i)
      
@@ -53,18 +58,67 @@ class Node :
         print(self)
         return self.taille
     
+    def parcourir(self) :
+        i = 0
+        for i in self.n :
+            if self.feuille == False :
+                self.tabFils[i].parcourir()
+            print(self.tabCles[i])
+        if self.feuille == False :
+            self.tabFils[i].parcourir()
+        
+    
+    
     
 class Arbre :
     
-    def __init__(self, Order) :
-       self.Order = Order
+    def __init__(self, L, U) :
+       self.nbFilsMin = L-1
+       self.nbFilsMax = U-1
+       self.rout = None
+       self.nodes = []
        #self.listeArbres = listeArbres
+       #self.val = None
+       #self.left = None
+       #self.right = None
        
-       self.val = None
-       self.left = None
-       self.right = None
-           
+    """
+    Add nodes to the tree
+    @param node : the node added to the tree
     
-       
+    """
+    def addNode(self, node) :
+        n = len(self.nodes)
+        if n >= self.nbFilsMax :
+            raise Exception('le nombre maximal des noeuds et dépassé')
+        else :
+            self.nodes.append(node)
+    
+    
+    def parcourir(self) :
+        i = 0
+        if self.rout != None :
+            self.rout.parcourir()
+            i += 1
+            print(i)
         
+    
+    def search(self, cle) :
+        if self.rout == None :
+            return None
+        else :
+            return self.rout.search(cle)
+    
+    def is_tree(self) :
+        # a modifier aprés
+        return True
+       
+    def recherche(self, element) :
+        #a modifier apres
+        return True
+        
+    def insert(self, element) :
+        # a modifier apres
+        return None
+
     
