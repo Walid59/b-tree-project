@@ -92,7 +92,7 @@ def main():
 
     B.print_tree(B.root)
 
-    if B.search_key(8) is not None:
+    if B.search_key(2) is not None:
         print("nFound")
     else:
         print("nNot found")

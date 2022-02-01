@@ -123,6 +123,13 @@ class Arbre :
     
     def search_key(self, k, node=None):
         if node is not None:
+#            for i in range(len(node.tabCles)) :
+#                if k == node.tabCles[i]:
+#                    return (node, i)
+#                elif node.feuille:
+#                    return None
+#                else :
+#                    return self.search_key(k, node.tabNodeChildrens[i])
             i = 0
             while i < len(node.tabCles) and k > node.tabCles[i]:
                 i += 1
@@ -131,7 +138,8 @@ class Arbre :
             elif node.feuille:
                 return None
             else:
-                self.search_key(k, node.tabNodeChildrens[i])
+                return self.search_key(k, node.tabNodeChildrens[i])
+                
         else:
             return self.search_key(k, self.root)
         
@@ -182,19 +190,19 @@ def main():
 
  
     N = Node()
-    N.tabCles = [1,2,3,6]
+    N.tabCles = [2,6]
     
     N1 = Node()
-    N1.tabCles = [7,8,9,10]
+    N1.tabCles = [1]
     
     #N.tabNodeChildrens = [N1, Node()]
-    N.tabNodeChildrens = [N1, Node(), Node()]
+    N.tabNodeChildrens = [N1]
     
     B.root = N
     
     B.print_tree(B.root)
 
-    if B.search_key(7) is not None:
+    if B.search_key(1) is not None:
         print("nFound")
     else:
         print("nNot found")
