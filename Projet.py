@@ -216,6 +216,7 @@ def main():
     B.nodes.append(N)
     B.nodes.append(N1)
     B.nodes.append(N2)
+    
     B.root = N
     B.print_tree(B.root)
     
