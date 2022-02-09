@@ -113,14 +113,7 @@ class Arbre :
             self.root.parcourir()
             i += 1
             print(i)
-        
-    
-#    def search(self, cle) :
-#        if self.root == None :
-#            return None
-#        else :
-#            return self.root.search(cle)
-    
+ 
     def search_key(self, k, node=None):
         if node is not None:
 #            for i in range(len(node.tabCles)) :
@@ -145,10 +138,7 @@ class Arbre :
         
         for i in node.tabNodeChildrens :
             self.root  =i
-            return self.search_key(k, i)
-        
-        
-        
+            return self.search_key(k, i)   
 #        for elm in node.tabNodeChildrens :
 #            
 #        j=0
@@ -157,21 +147,15 @@ class Arbre :
 #            #return self.search_key(k, i)
 #            j +=1
     
-    def recherche(self,v):
-        for noeud in self.nodes:
-            cles = noeud.tabCles
-            a = 0
-            b = len(cles) - 1
-            while a <= b:
-                m = (a + b) // 2
-                if cles[m] == v:
-                    return True
-                elif cles[m] < v:
-                    a = m + 1
-                else:
-                    b = m - 1
-        return False
-    #TODO optimiser avec tabNodeChildren et non nodes
+    
+    def insert(self, k):
+        root = self.root
+        if len(root.tabCles) == (2 * self.t) - 1:
+          temp = Node()
+          self.root = temp
+          temp.tabNodeChildrens.insert(0, root)
+          # split in tabNodeChildrens ..
+
     
     def is_tree(self) :
         # a modifier aprés
@@ -223,30 +207,11 @@ def main():
     for i in B.nodes:
         B.root = i
         if B.search_key(7) is not None:
-            print("nFound")
+            print( True)
         else:
-            print("nNot found")
+            print( False)
         
-#    B = Arbre(2, 3)
-#    N = Node()
-#    N.tabCles = [1, 2, 3, 6]
-#    B.nodes.append(N)
-#    N1 = Node()
-#    N1.tabCles = [7, 8, 9, 10]
-#    B.nodes.append(N1)
-#    #N.tabNodeChildrens = [N1, Node()]
-#    N2 = Node()
-#    N2.tabCles = [11]
-#    N.tabNodeChildrens = [N2]
-#    B.nodes.append(N2)
-#    B.root = N
-    
-#
-#    if B.recherche(11) is True:
-#        print("Found")
-#    else:
-#        print("Not found")
-
+         
 if __name__ == '__main__':
     main()
     
