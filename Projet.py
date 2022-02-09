@@ -150,7 +150,7 @@ class Arbre :
     
     def insert(self, k):
         root = self.root
-        if len(root.tabCles) == (2 * self.t) - 1:
+        if len(root.tabCles) == (self.nbFilsMax) - 1:
           temp = Node()
           self.root = temp
           temp.tabNodeChildrens.insert(0, root)
@@ -161,47 +161,28 @@ class Arbre :
         # a modifier aprés
         return True
        
-#    def recherche(self,v):
-#        a = 0
-#        for noeud in self.nodes:
-#            cles = noeud.tabCles
-#            b = len(cles) - 1
-#            while a <= b:
-#                m = (a + b) // 2
-#                if cles[m] == v:
-#                        # on a trouvé v
-#                    return True
-#                elif cles[m] < v:
-#                    a = m + 1
-#                else:
-#                    b = m - 1
-#                # on a a > b
-#            return False
-        
-    def insert(self, element) :
-        # a modifier apres
-        return None
 
 def main():
     B = Arbre(2, 3)
-
- 
-    N = Node()
-    N.tabCles = [2,6]
     
-    N1 = Node()
-    N1.tabCles = [1,3]
+#    N = Node()
+#    N.tabCles = [2,6]
+#    
+#    N1 = Node()
+#    N1.tabCles = [1,3]
+#    
+#    N2 = Node()
+#    N2.tabCles = [5,7,10] 
+#    
+#    N.tabNodeChildrens = [N1,N2]
+#    B.nodes.append(N)
+#    B.nodes.append(N1)
+#    B.nodes.append(N2)
+    B.insert(2)
+    B.insert(3)
+    B.insert(4)
     
-    N2 = Node()
-    N2.tabCles = [5,7,10] 
-    
-    #N.tabNodeChildrens = [N1, Node()]
-    N.tabNodeChildrens = [N1,N2]
-    B.nodes.append(N)
-    B.nodes.append(N1)
-    B.nodes.append(N2)
-    
-    B.root = N
+#    B.root = N
     B.print_tree(B.root)
     
     for i in B.nodes:
