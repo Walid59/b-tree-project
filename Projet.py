@@ -2,63 +2,79 @@
 
 class Node :
         
+    
     def __init__(self, feuille = False) :
-        #self.taille = taille
-        #self.parent = parent
-        #self.nbClesMin = L-1
-        #self.nbClesMax = U-1
+        """
+        creator of a node.
+        self : the object
+        feuille : verification if the object is feuille or not
+        """
         self.feuille = feuille
-        #self.n = n # nobre des element dans ce neoud
         self.tabCles = []
         self.tabNodeChildrens = []
-        # Current number of keys
-        #self.n = 0 
-    
-    """
-    This is a javadoc style.
 
-    @param param1: this is a first param
-    @param param2: this is a second param
-    @return: this is a description of what is returned
-    @raise keyError: raises an exception
-    """
     def ajoutCle(self, cle) :
+        """
+        
+        self : the object
+        
+        """
         self.tabCles.append(cle)
         
     def ajoutCles(self, nbCles) :
+        """
+        
+        self : the object
+        
+        """
         listevaleurs = [i for i in range (nbCles)]
         for i in  listevaleurs:
             self.tabCles.append(i)
      
     # juste pour verification
     def ajoutFils(self, arbre1, arbre2, arbre3) :
+        """
+        
+        self : the object
+        
+        """
         self.tabFils.append(arbre1)
         self.tabFils.append(arbre2)
         self.tabFils.append(arbre3)
-        
-    
+        #self.tabFils.append(arbre)
+
     def verificationSiFeuille(self) :
+        """
+        
+        self : the object
+        
+        """
         if len(self.tabFils) == 0 :
             self.feuille = True
         return self.feuille
-        
-    def presentation(self) :
-        None
+
     
     def ajoutFils(self, Arbre) :
+        """
+        
+        self : the object
+        
+        """
         self.tabFils.append(Arbre)
         
-    def ajoutFils(self, arbre) :
-        self.tabFils.append(arbre)
-        
     def gettabCles(self) :
+        """
+        get the list of keys
+        self : the object
+        
+        """
         return self.tabCles
     
-    def getTaille(self) :
-        print(self)
-        return self.taille
-    
     def parcourir(self) :
+        """
+        brows in the node
+        self : the object
+        """
         i = 0
         for i in self.n :
             if self.feuille == False :
@@ -67,12 +83,14 @@ class Node :
         if self.feuille == False :
             self.tabFils[i].parcourir()
         
-    
-    
-    
 class Arbre :
     
     def __init__(self, L, U) :
+        """
+        
+        self : the object
+        
+        """
        self.nbFilsMin = L-1
        self.nbFilsMax = U-1
        self.root = Node(True)
@@ -82,13 +100,13 @@ class Arbre :
        #self.left = None
        #self.right = None
        
-    """
-    Add nodes to the tree
-    @param node : the node added to the tree
-    
-    """
     
     def print_tree(self, node, l=0):
+        """
+        
+        self : the object
+        
+        """
         print("Level ", l, " ", len(node.tabCles), end=":")
         for i in node.tabCles:
             print(i, end=" ")
@@ -100,6 +118,11 @@ class Arbre :
                 
                 
     def addNode(self, node) :
+        """
+        
+        self : the object
+        
+        """
         n = len(self.nodes)
         if n >= self.nbFilsMax :
             raise Exception('le nombre maximal des noeuds et dépassé')
@@ -108,6 +131,11 @@ class Arbre :
     
     
     def parcourir(self) :
+        """
+        
+        self : the object
+        
+        """
         i = 0
         if self.root != None :
             self.root.parcourir()
@@ -115,6 +143,11 @@ class Arbre :
             print(i)
  
     def search_key(self, k, node=None):
+        """
+        
+        self : the object
+        
+        """
         if node is not None:
 #            for i in range(len(node.tabCles)) :
 #                if k == node.tabCles[i]:
@@ -149,17 +182,64 @@ class Arbre :
     
     
     def insert(self, k):
+        """
+        
+        self : the object
+        
+        """
         root = self.root
         if len(root.tabCles) == (self.nbFilsMax) - 1:
           temp = Node()
           self.root = temp
           temp.tabNodeChildrens.insert(0, root)
-          # split in tabNodeChildrens ..
-
+          self.split_child(temp, 0)
+          self.insert_non_full(temp, k)
+        else:
+          self.insert_non_full(root, k)
     
-    def is_tree(self) :
-        # a modifier aprés
-        return True
+    def insert_non_full(self, x, k):
+        """
+        
+        self : the object
+        
+        """
+        i = len(x.keys) - 1
+        if x.leaf:
+          x.keys.append((None, None))
+          while i >= 0 and k[0] < x.keys[i][0]:
+            x.keys[i + 1] = x.keys[i]
+            i -= 1
+          x.keys[i + 1] = k
+        else:
+          while i >= 0 and k[0] < x.keys[i][0]:
+            i -= 1
+          i += 1
+          if len(x.child[i].keys) == (2 * self.t) - 1:
+            self.split_child(x, i)
+            if k[0] > x.keys[i][0]:
+              i += 1
+          self.insert_non_full(x.child[i], k)
+
+    # Split the child
+    def split_child(self, x, i):
+        """
+        
+        self : the object
+        
+        """
+        t = self.t
+        y = x.child[i]
+        z = BTreeNode(y.leaf)
+        x.child.insert(i + 1, z)
+        x.keys.insert(i, y.keys[t - 1])
+        z.keys = y.keys[t: (2 * t) - 1]
+        y.keys = y.keys[0: t - 1]
+        if not y.leaf:
+          z.child = y.child[t: 2 * t]
+          y.child = y.child[0: t - 1]
+        def is_tree(self) :
+            # a modifier aprés
+            return True
        
 
 def main():
