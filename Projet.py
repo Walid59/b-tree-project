@@ -86,11 +86,7 @@ class Node :
 class Arbre :
     
     def __init__(self, L, U) :
-        """
         
-        self : the object
-        
-        """
        self.nbFilsMin = L-1
        self.nbFilsMax = U-1
        self.root = Node(True)
@@ -203,44 +199,36 @@ class Arbre :
         self : the object
         
         """
-        i = len(x.keys) - 1
-        if x.leaf:
-          x.keys.append((None, None))
+        i = len(x.tabCles) - 1
+        if x.feuille:
+          x.tabCles.append((None, None))
           while i >= 0 and k[0] < x.keys[i][0]:
-            x.keys[i + 1] = x.keys[i]
+            x.tabCles[i + 1] = x.tabCles[i]
             i -= 1
-          x.keys[i + 1] = k
+          x.tabCles[i + 1] = k
         else:
-          while i >= 0 and k[0] < x.keys[i][0]:
+          while i >= 0 and k[0] < x.tabCles[i][0]:
             i -= 1
           i += 1
-          if len(x.child[i].keys) == (2 * self.t) - 1:
+          if len(x.tabNodeChildrens[i].keys) == (2 * self.t) - 1:
             self.split_child(x, i)
-            if k[0] > x.keys[i][0]:
+            if k[0] > x.tabCles[i][0]:
               i += 1
-          self.insert_non_full(x.child[i], k)
+          self.insert_non_full(x.tabNodeChildrens[i], k)
 
     # Split the child
     def split_child(self, x, i):
-        """
-        
-        self : the object
-        
-        """
-        t = self.t
-        y = x.child[i]
-        z = BTreeNode(y.leaf)
-        x.child.insert(i + 1, z)
-        x.keys.insert(i, y.keys[t - 1])
-        z.keys = y.keys[t: (2 * t) - 1]
-        y.keys = y.keys[0: t - 1]
+        t = (self.nbFilsMax)/2
+        y = x.tabNodeChildrens[i]
+        z = Node(y.feuille)
+        x.tabNodeChildrens.insert(i + 1, z)
+        x.tabCles.insert(i, y.tabCles[t - 1])
+        z.tabCles = y.tabCles[t: (2 * t) - 1]
+        y.tabCles = y.tabCles[0: t - 1]
         if not y.leaf:
-          z.child = y.child[t: 2 * t]
-          y.child = y.child[0: t - 1]
-        def is_tree(self) :
-            # a modifier aprés
-            return True
-       
+          z.tabNodeChildrens = y.tabNodeChildrens[t: 2 * t]
+          y.tabNodeChildrens = y.tabNodeChildrens[0: t - 1]
+ 
 
 def main():
     B = Arbre(2, 3)
