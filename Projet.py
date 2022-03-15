@@ -3,16 +3,45 @@
 class Node :
         
     
-    def __init__(self, feuille = False) :
+    def __init__(self, leaf = False) :
         """
         creator of a node.
         self : the object
         feuille : verification if the object is feuille or not
         """
-        self.feuille = feuille
-        self.tabCles = []
+        self.leaf = leaf
+        self.keyArray = []
         self.tabNodeChildrens = []
 
+    def split(self, parent, payload):
+      """Split a node and reassign keys/children."""
+      new_node = self.__class__(self.nbFilsMax)
+
+      mid_point = self.size//2
+      split_value = self.keys[mid_point]
+      parent.add_key(split_value)
+
+      # Add keys and children to appropriate nodes
+      new_node.children = self.children[mid_point + 1:]
+      self.children = self.children[:mid_point + 1]
+      new_node.keys = self.keys[mid_point+1:]
+      self.keys = self.keys[:mid_point]
+
+      # If the new_node has children, set it as internal node
+      if len(new_node.children) > 0:
+        new_node.leaf = False
+
+      parent.children = parent.add_child(new_node)
+      if payload < split_value:
+        return self
+      else:
+        return new_node
+    
+    def add_key(self, value):
+      """Add a key to a node. The node will have room for the key by definition."""
+      self.tabCles.append(value)
+      self.tabCles.sort()
+      
     def ajoutCle(self, cle) :
         """
         
@@ -103,8 +132,8 @@ class Arbre :
         self : the object
         
         """
-        print("Level ", l, " ", len(node.tabCles), end=":")
-        for i in node.tabCles:
+        print("Level ", l, " ", len(node.keyArray), end=":")
+        for i in node.keyArray:
             print(i, end=" ")
         print()
         l += 1
@@ -177,89 +206,74 @@ class Arbre :
 #            j +=1
     
     
-    def insert(self, k):
-        """
-        
-        self : the object
-        
-        """
-        root = self.root
-        if len(root.tabCles) == (self.nbFilsMax) - 1:
-          temp = Node()
-          self.root = temp
-          temp.tabNodeChildrens.insert(0, root)
-          self.split_child(temp, 0)
-          self.insert_non_full(temp, k)
-        else:
-          self.insert_non_full(root, k)
     
-    def insert_non_full(self, x, k):
-        """
-        
-        self : the object
-        
-        """
-        i = len(x.tabCles) - 1
-        if x.feuille:
-          x.tabCles.append((None, None))
-          while i >= 0 and k[0] < x.keys[i][0]:
-            x.tabCles[i + 1] = x.tabCles[i]
+      
+    def insertAA(self, key) :
+#        res = self.root
+#        for elm in range (0, len(self.root.keyArray)) :
+#            if key < elm :
+        node = self.root   
+        while not node.leaf:
+          i = len(node.keyArray) - 1
+          while i > 0 and key < node.keyArray[i] :
             i -= 1
-          x.tabCles[i + 1] = k
-        else:
-          while i >= 0 and k[0] < x.tabCles[i][0]:
-            i -= 1
-          i += 1
-          if len(x.tabNodeChildrens[i].keys) == (2 * self.t) - 1:
-            self.split_child(x, i)
-            if k[0] > x.tabCles[i][0]:
-              i += 1
-          self.insert_non_full(x.tabNodeChildrens[i], k)
-
-    # Split the child
-    def split_child(self, x, i):
-        t = (self.nbFilsMax)/2
-        y = x.tabNodeChildrens[i]
-        z = Node(y.feuille)
-        x.tabNodeChildrens.insert(i + 1, z)
-        x.tabCles.insert(i, y.tabCles[t - 1])
-        z.tabCles = y.tabCles[t: (2 * t) - 1]
-        y.tabCles = y.tabCles[0: t - 1]
-        if not y.leaf:
-          z.tabNodeChildrens = y.tabNodeChildrens[t: 2 * t]
-          y.tabNodeChildrens = y.tabNodeChildrens[0: t - 1]
- 
-
+          # incrementation de la taille de keyArray
+          if key > node.keyArray[i]:
+            i += 1
+          next = node.tabNodeChildrens[i]
+          if len(next.keyArray) == self.nbChildMax :
+            node = next.split(node, key)
+          else:
+            node = next
+        # Since we split all full nodes on the way down, we can simply insert the payload in the leaf.
+        node.keyArray.append(key)
+        node.keyArray.sort()
+            #node.add_key(key)
+        
 def main():
-    B = Arbre(2, 3)
+    B = Arbre(1, 3)
+    B.insertAA(12)
+#    B.insertAA(16)
+#    
+#    B.insertAA(10)
+#    B.insertAA(14)
+#    
+#    B.insertAA(15)
+#    
+#    B.print_tree(B.root)
     
-#    N = Node()
-#    N.tabCles = [2,6]
+    N = Node()
+    N.keyArray = [12,16]
 #    
-#    N1 = Node()
-#    N1.tabCles = [1,3]
+    N1 = Node()
+    N1.keyArray = [10]
 #    
-#    N2 = Node()
-#    N2.tabCles = [5,7,10] 
-#    
-#    N.tabNodeChildrens = [N1,N2]
-#    B.nodes.append(N)
-#    B.nodes.append(N1)
-#    B.nodes.append(N2)
-    B.insert(2)
-    B.insert(3)
-    B.insert(4)
+    N2 = Node()
+    N2.keyArray = [14]
     
-#    B.root = N
+    N3 = Node()
+    N3.keyArray = [18]
+#    
+    N.tabNodeChildrens = [N1,N2,N3]
+    B.nodes.append(N)
+    B.nodes.append(N1)
+    B.nodes.append(N2)
+    B.nodes.append(N3)
+    B.insertAA(15)
+#    B.insert(2)
+#    B.insert(3)
+#    B.insert(4)
+    
+    B.root = N
     B.print_tree(B.root)
-    
-    for i in B.nodes:
-        B.root = i
-        if B.search_key(7) is not None:
-            print( True)
-        else:
-            print( False)
-        
+#    
+#    for i in B.nodes:
+#        B.root = i
+#        if B.search_key(7) is not None:
+#            print( True)
+#        else:
+#            print( False)
+#        
          
 if __name__ == '__main__':
     main()
