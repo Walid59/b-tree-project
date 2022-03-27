@@ -1,5 +1,8 @@
+import random
+
 from Tree import *
 from Node import *
+import graphviz
 
 
 def main():
@@ -28,12 +31,16 @@ def main():
     # RECHERCHE : OK
 
     tree = Tree(2, 3)
-    tree.insertKeys([1,2,3,4,5,6,7,8,9,10])
 
+    liste = list(range(1,20 +1))
+    random.shuffle(liste)
+    tree.insertKeys(liste)
+    print(liste)
 
-    tree.toStringAllNodes(tree.root)
+    tree.toGraph()
+    #tree.toStringAllNodes(tree.root)
+    #print(tree.exists_key(18))
 
-    tree.graph()
 
 if __name__ == '__main__':
     main()

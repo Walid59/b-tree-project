@@ -32,9 +32,9 @@ class Tree:
             print("-------------------------------------------------")
 
     def insert(self, key):
-        node = self.root.insert(key)
-        if len(node.keys) > self.nbChildMax:
-            self.split(node)
+        bool = self.root.insert(key, self)
+        if bool:
+            self.split(self.root)
 
     def split(self, node):
         print("Traitement du noeud contenant une valeur en trop:", node.keys)
@@ -49,17 +49,23 @@ class Tree:
         length = len(node.keys)
         if node.parent is not None:
             newNode = Node(node.parent, node.leaf)
-            newNode.keys = node.keys[length // 2:]
-            node.keys = node.keys[:length // 2]
+            newNode.keys = node.keys[length // 2:] #partie droite
+            node.keys = node.keys[:length // 2] #partie gauche
 
-            print("noeud gauche", node.keys)
-            print("nouveau noeud droit", newNode.keys)
+            newNode.childrens = node.childrens[len(node.childrens) // 2:]
+            for child in newNode.childrens:
+                child.parent = newNode
+
+            node.childrens = node.childrens[:len(node.childrens) // 2]
 
             i = node.parent.keyIndex(valueToMove)
-            print(node.parent.keys)
             node.parent.keys.insert(i, valueToMove)
-            print(node.parent.keys)
-            node.parent.childrens.append(newNode)
+
+            i = 0
+            for child in node.parent.childrens:
+                if child.keys[-1] < newNode.keys[-1]:
+                    i += 1
+            node.parent.childrens.insert(i, newNode)
 
             if len(node.parent.keys) > self.nbChildMax:
                 self.split(node.parent)
@@ -84,20 +90,8 @@ class Tree:
             node.keys.clear()
             node.keys.append(valueToMove)
 
-    def search_key(self, v):
-        for node in self.nodes:
-            keys = node.keyArray
-            a = 0
-            b = len(keys) - 1
-            while a <= b:
-                m = (a + b) // 2
-                if keys[m] == v:
-                    return True
-                elif keys[m] < v:
-                    a = m + 1
-                else:
-                    b = m - 1
-        return False
+    def exists_key(self,key):
+       return self.root.exists_key(key)
 
     def initNode(self, G, node):
         keys = str(node.keys)
@@ -107,10 +101,9 @@ class Tree:
             self.initNode(G,elem)
 
 
-    def graph(self):
+    def toGraph(self):
         G = nx.Graph()
         self.initNode(G, self.root)
-
-        nx.draw(G, with_labels=True)
+        pos = nx.spring_layout(G, k=0.1, iterations=100)
+        nx.draw(G, with_labels=True, pos=pos)
         plt.show()
-    # TODO optimiser avec childrens et non nodes
