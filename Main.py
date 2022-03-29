@@ -30,9 +30,9 @@ def main():
     # print(B.recherche(10))
     # RECHERCHE : OK
 
-    tree = Tree(2, 3)
+    tree = Tree(3, 4)
 
-    liste = list(range(1,20 +1))
+    liste = list(range(1,10 +1))
     random.shuffle(liste)
     tree.insertKeys(liste)
     print(liste)
