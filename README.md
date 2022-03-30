@@ -39,7 +39,7 @@ On suppose ici qu'on a arbre nommé _tree_ qui existe déjà pour les exemples.
 où key correspond à un nombre entier quelconque.
 
 
-- Pour ajouter plusieurs valeurs à la fois, il suffit de faire :`tree.insert(l)`  
+- Pour ajouter plusieurs valeurs à la fois, il suffit de faire :`tree.insertKeys(l)`  
 où l correspond à une liste quelconque contenant 0 ou plusieurs entiers.
 
 3) ###  Pour chercher une valeur :
