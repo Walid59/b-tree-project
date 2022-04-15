@@ -1,12 +1,14 @@
 #### projet L3S6 sur les arbres B réalisé par ROUABAH Walid & Mohamed-Amine Fathallah
 
+Quelques bugs au niveau des images malheureusement, pour une raison qui nous échappe. Nous sommes désolés pour cela.  
+
 ### Ce qui a été réalisé:
 1) L'insertion d'une ou plusieurs clés
 2) La recherche d'une clé
 3) La documentation, avec sphinx.
 
 ### Ce qui n'a pas été réalisé ou réalisé partiellement:
--La suppression d'une ou plusieurs clés : Le merge n'a pas été réalisé, donc il peut y avoir des noeuds vide, ce qui rend l'arbre invalide.
+-La suppression d'une ou plusieurs clés : Le merge n'a pas été réalisé, donc il peut y avoir des noeuds vide, ce qui rend l'arbre invalide.  
 -La fonction qui permet de savoir si l'arbre est un arbre b. Cette fonction aurait pu être utile dans le cas de notre projet, mais nous avons préféré vérifier graphiquement si l'arbre était un arbre b ou non.
 
 ## Sommaire :  
