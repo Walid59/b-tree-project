@@ -85,6 +85,23 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="Node.Node.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Node.Node.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de suppression permettant d’enlever la clé dans un noeud ou dans son noeud enfant selon la structure du noeud avant suppression</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – (int) clé qu’on veut retirer du le noeud</p></li>
+<li><p><strong>tree</strong> – (Tree) arbre</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>False si la taille des clés du noeud (concerné par la suppression de la valeur) est inférieure au nombre d’enfants minimal de l’arbre en paramètre, True sinon.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="Node.Node.toString">
 <span class="sig-name descname"><span class="pre">toString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Node.Node.toString" title="Permalink to this definition">¶</a></dt>
 <dd><p>affiche tous les attributs du noeud ainsi que celui de tout ses noeuds enfants : parent, leaf, keys, et childrens sous ce format :</p>

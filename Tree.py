@@ -57,9 +57,27 @@ class Tree:
 
         :param key: (int) clé à ajouter à l'arbre
         """
-        bool = self.root.insert(key, self)
-        if bool:
-            self.split(self.root)
+
+        if not self.exists_key(key):
+            bool = self.root.insert(key, self)
+            if bool:
+                self.split(self.root)
+        else:
+            print("la clé", key, "existe déjà ! Elle ne sera donc pas ajoutée à l'arbre.")
+
+    def remove(self, key):
+        """
+        Enlève la clé à l'emplacement convenu de l'arbre B
+
+        :param key: (int) clé à retirer de l'arbre
+        """
+        if self.exists_key(key):
+            # bool = self.root.remove(key,self)
+            # if bool:
+            #     self.merge(self.root)
+            self.root.remove(key, self)
+        else:
+            print("la clé", key, "n'existe pas ! Elle ne peut donc pas être supprimée de l'arbre.")
 
     def split(self, node):
         """
@@ -119,6 +137,26 @@ class Tree:
             node.childrens = [nLeft, nRight]
             node.keys.clear()
             node.keys.append(valueToMove)
+
+    def merge(self, node):
+        """
+        Traite un noeud qui a un nombre de clés inférieures à l'attribut nbChildMin en le divisant et en créant 1 ou 2 noeuds selon la situation (racine -> 2 sinon 1)
+
+        :param node: (Node) Noeud concerncé par le traitement de l'arbre
+        """
+
+        print("Traitement du noeud vide ou inférieure au nombre d'enfants nécéssaire:", node.keys)
+        print("Méthode incomplète.")
+        # if node.leaf:
+        #     if not node.keys:
+        #         i = node.keyIndex()
+        #         node.keys.append(node.parent.keys[0])
+        #         node.parent.keys.pop(0)
+        #         if not node.parent.keys:
+        #             self.takeFromParentKey()
+        return
+    #TODO le merge
+
 
     def exists_key(self,key):
         # Je ne peux pas faire de doc en raison d'un bug inconnu de Python sur cette méthode...
