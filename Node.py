@@ -64,6 +64,37 @@ class Node:
             self.keys.insert(i, key)
             return len(self.keys) > tree.nbChildMax
 
+    def remove(self, key, tree):
+        """
+        Fonction de suppression permettant d'enlever la clé dans un noeud ou dans son noeud enfant selon la structure du noeud avant suppression
+
+        :param key: (int) clé qu'on veut retirer du le noeud
+        :param tree: (Tree) arbre
+        :return: False si la taille des clés du noeud (concerné par la suppression de la valeur) est inférieure au nombre d'enfants minimal de l'arbre en paramètre, True sinon.
+        """
+        if self.leaf:
+            self.keys.remove(key)
+            #return len(self.keys) < tree.nbChildMin
+
+        else:
+            i = 0
+            while i < len(self.keys) and key > self.keys[i]:
+                i += 1
+
+            #bool = self.childrens[i].remove(key, tree)
+            # if bool:
+            #     print('merge')
+            #     tree.merge(self.childrens[i])
+            #     return len(self.keys) < tree.nbChildMin
+            # else:
+            #     print('pas de merge')
+            #     return False
+            if self.keys[i] == key:
+                self.keys.pop(i)
+            else:
+                print("passage au fils contenant les clés:", self.childrens[i].keys)
+                self.childrens[i].remove(key, tree)
+
     def exists_key(self, searching_key):
         """
         permet de rechercher la clé fournie en paramètre.

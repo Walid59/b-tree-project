@@ -1,22 +1,23 @@
 #### projet L3S6 sur les arbres B réalisé par ROUABAH Walid & Mohamed-Amine Fathallah
 
+Tout d'abord, pour une raison qui nous échappe, il y a un bug qui empêche l'affichage de certaines images.
 ### Ce qui a été réalisé:
 1) L'insertion d'une ou plusieurs clés
 2) La recherche d'une clé
 3) La documentation, avec sphinx.
 
 ### Ce qui n'a pas été réalisé ou réalisé partiellement:
--La suppression d'une ou plusieurs clés.  
+-La suppression d'une ou plusieurs clés : Le merge n'a pas été réalisé, donc il peut y avoir des noeuds vide, ce qui rend l'arbre invalide.
 -La fonction qui permet de savoir si l'arbre est un arbre b. Cette fonction aurait pu être utile dans le cas de notre projet, mais nous avons préféré vérifier graphiquement si l'arbre était un arbre b ou non.
-
 
 ## Sommaire :  
 I) Fonctionnement du code et de la documentation
 1) Comment créer un arbre
 2) Comment ajouter une valeur
 3) Comment chercher une valeur
-4) Fonctionnement de la documentation
-5) Ressources utilisées pour la réalisation de ce projet
+4) Comment supprimer une valeur
+5) Fonctionnement de la documentation
+6) Ressources utilisées pour la réalisation de ce projet
 
 II) Explication appronfondie du code et exemples sur la recherche et l'insertion
 1) Pour la recherche
@@ -46,9 +47,17 @@ où l correspond à une liste quelconque contenant 0 ou plusieurs entiers.
 C'est tout simple, il suffit de taper : `tree.exists_key(key)`  
 où key correspond correspond à la clé qu'on veut chercher dans l'arbre.
 
-4) ### Fonctionnement et génération de la documentation 
+4) ### Comment supprimer une valeur :
+- Pour supprimer un seul élément à un arbre, il suffit de faire :  `tree.remove(key)`  
+où key correspond à un nombre entier quelconque.  
+Nous tenons à rappeller que la méthode ne fonctionne pas vraiment :  
+la clé est bien supprimée, mais le traitement de l'arbre (fusion des noeuds, etc.) n'a pas été fait.  
+
+
+5) ### Fonctionnement et génération de la documentation 
 La documentation sous format HTML a été générée grâce à Sphinx. 
 Les fichiers html de la documentation sont contenus dans docs/_build/html.
+
 
 **[OPTIONNEL]**  
 Je me permets de donner les commandes même si la documentation a déjà été générée :  
@@ -446,4 +455,3 @@ nous sommes à partir d'ici dans le insert() récursif de la ligne 397 du rappor
 </td>
 </tr>
 </table>
-
