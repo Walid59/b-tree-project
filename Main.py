@@ -4,7 +4,7 @@ from Tree import *
 
 
 def main():
-    tree = Tree(3, 4)
+    tree = Tree(2, 3)
 
     liste = list(range(1,10 +1))
     random.shuffle(liste)
