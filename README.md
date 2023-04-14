@@ -1,6 +1,6 @@
 #### projet L3S6 sur les arbres B réalisé par ROUABAH Walid & Mohamed-Amine Fathallah
 
-Quelques bugs au niveau des images malheureusement, pour une raison qui nous échappe. Nous sommes désolés pour cela.  
+Quelques bugs au niveau des images malheureusement, pour une raison qui nous échappe. Nous sommes désolés pour cela.  (Donc ne pas hésiter à voir les images dans le dossiers /images !)
 
 ### Ce qui a été réalisé:
 1) L'insertion d'une ou plusieurs clés
